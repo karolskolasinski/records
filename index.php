@@ -7,14 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Records</title>
 </head>
+
 <body>
+<form action="./account.php" method="post">
+    <p>Login:</p>
+    <label>
+        <input type="text" name="login" />
+    </label>
 
-<?php
+    <p>Password:</p>
+    <label>
+        <input type="password" name="password" />
+    </label>
 
-echo "<h1>Hello world</h1>"
+    <br />
+    <br />
 
-
-?>
+    <button type="submit">Login</button>
+</form>
 
 </body>
 </html>
