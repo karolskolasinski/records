@@ -8,34 +8,63 @@ require_once "../../model/Track.php";
 
 $database = new Database();
 $conn = $database->connect();
-
 $track = new Track($conn);
 
-$all = $track->readAll();
-$row_counter = $all->rowCount();
 
-if ($row_counter > 0) {
-    $tracks_arr = array();
+!empty($_GET["id"]) ? readOne($track) : readAll($track);
 
-    while ($row = $all->fetch(PDO::FETCH_ASSOC)) {
-        extract($row);
 
-        /** @var int $id */
-        /** @var int $record_id */
-        /** @var string $artist */
-        /** @var string $title */
-        $track_item = [
-            "id" => $id,
-            "record_id" => $record_id,
-            "artist" => $artist,
-            "title" => $title,
-        ];
+function readOne(Track $track) {
+    $track->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-        array_push($tracks_arr, $track_item);
-    }
+    $one = $track->readOne();
+    $row = $one->fetch(PDO::FETCH_ASSOC);
 
-    echo json_encode($tracks_arr);
+    $track->record_id = $row["record_id"];
+    $track->artist = $row["artist"];
+    $track->title = $row["title"];
 
-} else {
-    echo json_encode(array("message" => "No tracks found."));
+    $track_arr = [
+        "id" => $track->id,
+        "record_id" => $track->record_id,
+        "artist" => $track->artist,
+        "title" => $track->title
+    ];
+
+    print_r(json_encode($track_arr));
 }
+
+
+function readAll(Track $track) {
+    $all = $track->readAll();
+    $row_counter = $all->rowCount();
+
+    if ($row_counter > 0) {
+        $tracks_arr = [];
+        $tracks_arr["data"] = [];
+
+        while ($row = $all->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+
+            /** @var int $id */
+            /** @var int $record_id */
+            /** @var string $artist */
+            /** @var string $title */
+            $track_item = [
+                "id" => $id,
+                "record_id" => $record_id,
+                "artist" => $artist,
+                "title" => $title,
+            ];
+
+            array_push($tracks_arr["data"], $track_item);
+        }
+
+        echo json_encode($tracks_arr);
+
+    } else {
+        echo json_encode(["message" => "No tracks found."]);
+    }
+}
+
+?>
