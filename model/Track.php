@@ -1,6 +1,5 @@
 <?php
 
-
 class Track {
     private $conn;
 
@@ -73,5 +72,6 @@ class Track {
         return false;
     }
 
-
 }
+
+?>

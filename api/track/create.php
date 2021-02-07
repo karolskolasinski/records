@@ -17,10 +17,9 @@ $data = json_decode(file_get_contents("php://input"));
 $track->record_id = $data->record_id;
 $track->title = $data->title;
 
-if ($track->create()) {
-    echo json_encode(["message:" => "Track created"]);
-} else {
-    echo json_encode(["message:" => "Track not created"]);
-}
+echo json_encode($track->create() ?
+    ["message:" => "Track created"] :
+    ["message:" => "Track not created"]
+);
 
 ?>

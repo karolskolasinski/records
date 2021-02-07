@@ -1,6 +1,5 @@
 <?php
 
-
 class Database {
     private $db_host = 'localhost';
     private $db_user = 'root';
@@ -21,6 +20,5 @@ class Database {
 
         return $this->db_conn;
     }
-
 
 }
