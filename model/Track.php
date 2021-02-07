@@ -52,4 +52,26 @@ class Track {
         return $stmt;
     }
 
+    public function create() {
+        $query = /** @lang MySQL */
+            "INSERT INTO 
+            track
+        SET
+            record_id = :record_id,
+            title = :title";
+
+        $stmt = $this->conn->prepare($query);
+        $this->record_id = htmlspecialchars(strip_tags($this->record_id));
+        $this->title = htmlspecialchars(strip_tags($this->title));
+        $stmt->bindParam(":record_id", $this->record_id);
+        $stmt->bindParam(":title", $this->title);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+    }
+
+
 }
