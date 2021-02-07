@@ -1,9 +1,10 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-include_once "../../config/Database.php";
-include_once "../../model/Track.php";
+require_once "../../config/Database.php";
+require_once "../../model/Track.php";
 
 $database = new Database();
 $conn = $database->connect();
@@ -15,7 +16,6 @@ $row_counter = $all->rowCount();
 
 if ($row_counter > 0) {
     $tracks_arr = array();
-    $tracks_arr["data"] = array();
 
     while ($row = $all->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
@@ -24,18 +24,18 @@ if ($row_counter > 0) {
         /** @var int $record_id */
         /** @var string $artist */
         /** @var string $title */
-        $track_item = array(
+        $track_item = [
             "id" => $id,
             "record_id" => $record_id,
             "artist" => $artist,
             "title" => $title,
-        );
+        ];
 
-        array_push($tracks_arr["data"], $track_item);
+        array_push($tracks_arr, $track_item);
     }
 
     echo json_encode($tracks_arr);
 
 } else {
-    echo json_encode(array("message" => "No tracks found"));
+    echo json_encode(array("message" => "No tracks found."));
 }
