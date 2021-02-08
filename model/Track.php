@@ -72,6 +72,31 @@ class Track {
         return false;
     }
 
+    public function update() {
+        $query = /** @lang MySQL */
+            "UPDATE 
+            track
+        SET
+            record_id = :record_id,
+            title = :title
+        WHERE 
+            id = :id";
+
+        $stmt = $this->conn->prepare($query);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->record_id = htmlspecialchars(strip_tags($this->record_id));
+        $this->title = htmlspecialchars(strip_tags($this->title));
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":record_id", $this->record_id);
+        $stmt->bindParam(":title", $this->title);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+    }
+
 }
 
 ?>

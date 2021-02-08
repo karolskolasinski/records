@@ -3,15 +3,24 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-require_once "../../config/Database.php";
-require_once "../../model/Track.php";
+require_once "../config/Database.php";
+require_once "../model/Track.php";
 
 $database = new Database();
 $conn = $database->connect();
 $track = new Track($conn);
 
 
-!empty($_GET["id"]) ? readOne($track) : readAll($track);
+if (!empty(file_get_contents("php://input"))) {
+    $data = json_decode(file_get_contents("php://input"));
+
+    (empty($data->id)) ? create($track) : update($track);
+
+} else if (!empty($_GET["id"])) {
+    readOne($track);
+} else {
+    readAll($track);
+}
 
 
 function readOne(Track $track) {
@@ -65,6 +74,38 @@ function readAll(Track $track) {
     } else {
         echo json_encode(["message" => "No tracks found."]);
     }
+}
+
+
+function create(Track $track) {
+    header("Access-Control-Allow-Methods: POST");
+    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $track->record_id = $data->record_id;
+    $track->title = $data->title;
+
+    echo json_encode($track->create() ?
+        ["message:" => "Track created."] :
+        ["message:" => "Track not created."]
+    );
+}
+
+function update(Track $track) {
+    header("Access-Control-Allow-Methods: PUT");
+    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $track->id = $data->id;
+    $track->record_id = $data->record_id;
+    $track->title = $data->title;
+
+    echo json_encode($track->update() ?
+        ["message:" => "Track updated."] :
+        ["message:" => "Track not updated."]
+    );
 }
 
 ?>
