@@ -11,7 +11,7 @@ $conn = $database->connect();
 $record = new Record($conn);
 
 
-switch ($_SERVER['REQUEST_METHOD']) {
+switch ($_SERVER["REQUEST_METHOD"]) {
     case "DELETE":
         delete($record);
         break;
