@@ -11,36 +11,16 @@ $conn = $database->connect();
 $track = new Track($conn);
 
 
-if (!empty(file_get_contents("php://input"))) {
-    $data = json_decode(file_get_contents("php://input"));
-
-    (empty($data->id)) ? create($track) : update($track);
-
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    delete($track);
+} else if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    update($track);
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    create($track);
 } else if (!empty($_GET["id"])) {
     readOne($track);
 } else {
     readAll($track);
-}
-
-
-function readOne(Track $track) {
-    $track->id = isset($_GET["id"]) ? $_GET["id"] : die();
-
-    $one = $track->readOne();
-    $row = $one->fetch(PDO::FETCH_ASSOC);
-
-    $track->record_id = $row["record_id"];
-    $track->artist = $row["artist"];
-    $track->title = $row["title"];
-
-    $track_arr = [
-        "id" => $track->id,
-        "record_id" => $track->record_id,
-        "artist" => $track->artist,
-        "title" => $track->title
-    ];
-
-    print_r(json_encode($track_arr));
 }
 
 
@@ -77,6 +57,27 @@ function readAll(Track $track) {
 }
 
 
+function readOne(Track $track) {
+    $track->id = isset($_GET["id"]) ? $_GET["id"] : die();
+
+    $one = $track->readOne();
+    $row = $one->fetch(PDO::FETCH_ASSOC);
+
+    $track->record_id = $row["record_id"];
+    $track->artist = $row["artist"];
+    $track->title = $row["title"];
+
+    $track_arr = [
+        "id" => $track->id,
+        "record_id" => $track->record_id,
+        "artist" => $track->artist,
+        "title" => $track->title
+    ];
+
+    print_r(json_encode($track_arr));
+}
+
+
 function create(Track $track) {
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
@@ -92,6 +93,7 @@ function create(Track $track) {
     );
 }
 
+
 function update(Track $track) {
     header("Access-Control-Allow-Methods: PUT");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
@@ -105,6 +107,21 @@ function update(Track $track) {
     echo json_encode($track->update() ?
         ["message:" => "Track updated."] :
         ["message:" => "Track not updated."]
+    );
+}
+
+
+function delete(Track $track) {
+    header("Access-Control-Allow-Methods: DELETE");
+    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $track->id = $data->id;
+
+    echo json_encode($track->delete() ?
+        ["message:" => "Track deleted."] :
+        ["message:" => "Track not deleted."]
     );
 }
 
