@@ -22,7 +22,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         create($track);
         break;
     case "GET":
-        !empty($_GET["id"]) ? create($track) : readAll($track);
+        !empty($_GET["id"]) ? readOne($track) : readAll($track);
 }
 
 

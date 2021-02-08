@@ -1,0 +1,138 @@
+<?php
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+
+require_once "../config/Database.php";
+require_once "../model/Record.php";
+
+$database = new Database();
+$conn = $database->connect();
+$record = new Record($conn);
+
+
+switch ($_SERVER['REQUEST_METHOD']) {
+    case "DELETE":
+        delete($record);
+        break;
+    case "PUT":
+        update($record);
+        break;
+    case "POST":
+        create($record);
+        break;
+    case "GET":
+        !empty($_GET["id"]) ? readOne($record) : readAll($record);
+}
+
+
+function readAll(Record $record) {
+    $all = $record->readAll();
+    $row_counter = $all->rowCount();
+
+    if ($row_counter > 0) {
+        $tracks_arr = [];
+        $tracks_arr["data"] = [];
+
+        while ($row = $all->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+
+            /** @var int $id */
+            /** @var string $artist */
+            /** @var string $title */
+            /** @var string $release_type */
+            /** @var string $release_year */
+            $track_item = [
+                "id" => $id,
+                "artist" => $artist,
+                "title" => $title,
+                "release_type" => $release_type,
+                "release_year" => $release_year,
+            ];
+
+            array_push($tracks_arr["data"], $track_item);
+        }
+
+        echo json_encode($tracks_arr);
+
+    } else {
+        echo json_encode(["message" => "No tracks found."]);
+    }
+}
+
+
+function readOne(Record $record) {
+    $record->id = isset($_GET["id"]) ? $_GET["id"] : die();
+
+    $one = $record->readOne();
+    $row = $one->fetch(PDO::FETCH_ASSOC);
+
+    $record->artist = $row["artist"];
+    $record->title = $row["title"];
+    $record->release_type = $row["release_type"];
+    $record->release_year = $row["release_year"];
+
+    $track_arr = [
+        "id" => $record->id,
+        "artist" => $record->artist,
+        "title" => $record->title,
+        "release_type" => $record->release_type,
+        "release_year" => $record->release_year,
+    ];
+
+    print_r(json_encode($track_arr));
+}
+
+
+function create(Record $record) {
+    header("Access-Control-Allow-Methods: POST");
+    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $record->artist = $data->artist;
+    $record->title = $data->title;
+    $record->release_type = $data->release_type;
+    $record->release_year = $data->release_year;
+
+    echo json_encode($record->create() ?
+        ["message:" => "Record created."] :
+        ["message:" => "Record not created."]
+    );
+}
+
+
+function update(Record $record) {
+    header("Access-Control-Allow-Methods: PUT");
+    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $record->id = $data->id;
+    $record->artist = $data->artist;
+    $record->title = $data->title;
+    $record->release_type = $data->release_type;
+    $record->release_year = $data->release_year;
+
+    echo json_encode($record->update() ?
+        ["message:" => "Record updated."] :
+        ["message:" => "Record not updated."]
+    );
+}
+
+
+function delete(Record $record) {
+    header("Access-Control-Allow-Methods: DELETE");
+    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $record->id = $data->id;
+
+    echo json_encode($record->delete() ?
+        ["message:" => "Record deleted."] :
+        ["message:" => "Record not deleted."]
+    );
+}
+
+?>
