@@ -11,16 +11,18 @@ $conn = $database->connect();
 $track = new Track($conn);
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    delete($track);
-} else if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    update($track);
-} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    create($track);
-} else if (!empty($_GET["id"])) {
-    readOne($track);
-} else {
-    readAll($track);
+switch ($_SERVER['REQUEST_METHOD']) {
+    case "DELETE":
+        delete($track);
+        break;
+    case "PUT":
+        update($track);
+        break;
+    case "POST":
+        create($track);
+        break;
+    case "GET":
+        !empty($_GET["id"]) ? create($track) : readAll($track);
 }
 
 
