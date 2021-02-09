@@ -10,5 +10,24 @@
 
 <body>
 
+<?php
+
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+require_once "./vendor/autoload.php";
+include "./service/recordService.php";
+
+$readAll = readAll();
+
+$loader = new FilesystemLoader("./views");
+$twig = new Environment($loader);
+
+
+echo $twig->render("records.html.twig", [
+    "records" => $readAll,
+]);
+
+?>
+
 </body>
 </html>

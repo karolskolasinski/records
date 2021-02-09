@@ -1,32 +1,37 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json");
-
-require_once "../config/Database.php";
-require_once "../model/Track.php";
-
-$database = new Database();
-$conn = $database->connect();
-$track = new Track($conn);
-
 
 switch ($_SERVER["REQUEST_METHOD"]) {
     case "DELETE":
-        delete($track);
+        delete();
         break;
     case "PUT":
-        update($track);
+        update();
         break;
     case "POST":
-        create($track);
+        create();
         break;
     case "GET":
-        !empty($_GET["id"]) ? readOne($track) : readAll($track);
+        !empty($_GET["id"]) ? readOne() : readAll();
 }
 
 
-function readAll(Track $track) {
+function setup(): Track {
+    header("Access-Control-Allow-Origin: *");
+    header("Content-Type: application/json");
+
+    require_once "../config/Database.php";
+    require_once "../model/Track.php";
+
+    $database = new Database();
+    $conn = $database->connect();
+    $track = new Track($conn);
+    return $track;
+}
+
+
+function readAll() {
+    $track = setup();
     $all = $track->readAll();
     $row_counter = $all->rowCount();
 
@@ -59,7 +64,8 @@ function readAll(Track $track) {
 }
 
 
-function readOne(Track $track) {
+function readOne() {
+    $track = setup();
     $track->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
     $one = $track->readOne();
@@ -80,7 +86,8 @@ function readOne(Track $track) {
 }
 
 
-function create(Track $track) {
+function create() {
+    $track = setup();
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -96,7 +103,8 @@ function create(Track $track) {
 }
 
 
-function update(Track $track) {
+function update() {
+    $track = setup();
     header("Access-Control-Allow-Methods: PUT");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -113,7 +121,8 @@ function update(Track $track) {
 }
 
 
-function delete(Track $track) {
+function delete() {
+    $track = setup();
     header("Access-Control-Allow-Methods: DELETE");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 

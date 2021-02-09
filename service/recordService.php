@@ -1,27 +1,8 @@
 <?php
 
-
-switch ($_SERVER["REQUEST_METHOD"]) {
-    case "DELETE":
-        delete();
-        break;
-    case "PUT":
-        update();
-        break;
-    case "POST":
-        create();
-        break;
-    case "GET":
-        !empty($_GET["id"]) ? readOne() : readAll();
-}
-
-
 function setup(): Record {
-    header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json");
-
-    require_once "../config/Database.php";
-    require_once "../model/Record.php";
+    require_once "./config/Database.php";
+    require_once "./model/Record.php";
 
     $database = new Database();
     $conn = $database->connect();
@@ -58,10 +39,10 @@ function readAll() {
             array_push($tracks_arr["data"], $track_item);
         }
 
-        echo json_encode($tracks_arr);
+        return json_encode($tracks_arr);
 
     } else {
-        echo json_encode(["message" => "No tracks found."]);
+        return json_encode(["message" => "No tracks found."]);
     }
 }
 
@@ -86,7 +67,7 @@ function readOne() {
         "release_year" => $record->release_year,
     ];
 
-    print_r(json_encode($track_arr));
+    return json_encode($track_arr);
 }
 
 
@@ -102,7 +83,7 @@ function create() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    echo json_encode($record->create() ?
+    return json_encode($record->create() ?
         ["message:" => "Record created."] :
         ["message:" => "Record not created."]
     );
@@ -111,7 +92,7 @@ function create() {
 
 function update() {
     $record = setup();
-    header("Access-Control-Allow-Methods: PUT");
+    header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
     $data = json_decode(file_get_contents("php://input"));
@@ -122,7 +103,7 @@ function update() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    echo json_encode($record->update() ?
+    return json_encode($record->update() ?
         ["message:" => "Record updated."] :
         ["message:" => "Record not updated."]
     );
@@ -131,14 +112,14 @@ function update() {
 
 function delete() {
     $record = setup();
-    header("Access-Control-Allow-Methods: DELETE");
+    header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
     $data = json_decode(file_get_contents("php://input"));
 
     $record->id = $data->id;
 
-    echo json_encode($record->delete() ?
+    return json_encode($record->delete() ?
         ["message:" => "Record deleted."] :
         ["message:" => "Record not deleted."]
     );
