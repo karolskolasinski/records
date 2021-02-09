@@ -9,22 +9,6 @@
 </head>
 
 <body>
-<form action="./account.php" method="post">
-    <p>Login:</p>
-    <label>
-        <input type="text" name="login" />
-    </label>
-
-    <p>Password:</p>
-    <label>
-        <input type="password" name="password" />
-    </label>
-
-    <br />
-    <br />
-
-    <button type="submit">Login</button>
-</form>
 
 </body>
 </html>

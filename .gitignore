@@ -118,3 +118,6 @@ dist
 # IntelliJ IDEA
 .idea/
 *.iml
+
+# PHP vendor
+vendor
