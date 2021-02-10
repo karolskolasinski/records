@@ -75,14 +75,14 @@ function readOne() {
     $track->artist = $row["artist"];
     $track->title = $row["title"];
 
-    $track_arr = [
+    $track_iten = [
         "id" => $track->id,
         "record_id" => $track->record_id,
         "artist" => $track->artist,
         "title" => $track->title
     ];
 
-    print_r(json_encode($track_arr));
+    print_r(json_encode($track_iten));
 }
 
 

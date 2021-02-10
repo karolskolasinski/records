@@ -1,8 +1,16 @@
 <h1>Records:</h1>
-{#<ul>#}
-{#    {% for record in records %}#}
-{#    <li>{{ record.id }}, {{ record.artist }}  </li>#}
-{#    {% endfor %}#}
-{#</ul>#}
+<ul>
+    {% for record in records %}
+        <li>{{ record.id }}
+            {{ record.artist }}
+            {{ record.title }}
+            {{ record.release_type }}
+            {{ record.release_year }}</li>
+    {% endfor %}
+</ul>
 
-{{ records }}
+{{ record.id }}
+{{ record.artist }}
+{{ record.title }}
+{{ record.release_type }}
+{{ record.release_year }}

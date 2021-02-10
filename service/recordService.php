@@ -17,8 +17,7 @@ function readAll() {
     $row_counter = $all->rowCount();
 
     if ($row_counter > 0) {
-        $tracks_arr = [];
-        $tracks_arr["data"] = [];
+        $records_arr = [];
 
         while ($row = $all->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
@@ -28,7 +27,7 @@ function readAll() {
             /** @var string $title */
             /** @var string $release_type */
             /** @var string $release_year */
-            $track_item = [
+            $record_item = [
                 "id" => $id,
                 "artist" => $artist,
                 "title" => $title,
@@ -36,20 +35,20 @@ function readAll() {
                 "release_year" => $release_year,
             ];
 
-            array_push($tracks_arr["data"], $track_item);
+            array_push($records_arr, $record_item);
         }
 
-        return json_encode($tracks_arr);
+        return $records_arr;
 
     } else {
-        return json_encode(["message" => "No tracks found."]);
+        return ["message" => "No tracks found."];
     }
 }
 
 
-function readOne() {
+function readOne($id) {
     $record = setup();
-    $record->id = isset($_GET["id"]) ? $_GET["id"] : die();
+    $record->id = $id;
 
     $one = $record->readOne();
     $row = $one->fetch(PDO::FETCH_ASSOC);
@@ -59,7 +58,7 @@ function readOne() {
     $record->release_type = $row["release_type"];
     $record->release_year = $row["release_year"];
 
-    $track_arr = [
+    $record_item = [
         "id" => $record->id,
         "artist" => $record->artist,
         "title" => $record->title,
@@ -67,7 +66,7 @@ function readOne() {
         "release_year" => $record->release_year,
     ];
 
-    return json_encode($track_arr);
+    return $record_item;
 }
 
 
@@ -83,10 +82,9 @@ function create() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    return json_encode($record->create() ?
+    return $record->create() ?
         ["message:" => "Record created."] :
-        ["message:" => "Record not created."]
-    );
+        ["message:" => "Record not created."];
 }
 
 
@@ -103,10 +101,9 @@ function update() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    return json_encode($record->update() ?
+    return $record->update() ?
         ["message:" => "Record updated."] :
-        ["message:" => "Record not updated."]
-    );
+        ["message:" => "Record not updated."];
 }
 
 
@@ -119,10 +116,9 @@ function delete() {
 
     $record->id = $data->id;
 
-    return json_encode($record->delete() ?
+    return $record->delete() ?
         ["message:" => "Record deleted."] :
-        ["message:" => "Record not deleted."]
-    );
+        ["message:" => "Record not deleted."];
 }
 
 ?>

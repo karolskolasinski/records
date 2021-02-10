@@ -36,8 +36,8 @@ function readAll() {
     $row_counter = $all->rowCount();
 
     if ($row_counter > 0) {
-        $tracks_arr = [];
-        $tracks_arr["data"] = [];
+        $records_arr = [];
+        $records_arr["data"] = [];
 
         while ($row = $all->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
@@ -47,7 +47,7 @@ function readAll() {
             /** @var string $title */
             /** @var string $release_type */
             /** @var string $release_year */
-            $track_item = [
+            $record_item = [
                 "id" => $id,
                 "artist" => $artist,
                 "title" => $title,
@@ -55,10 +55,10 @@ function readAll() {
                 "release_year" => $release_year,
             ];
 
-            array_push($tracks_arr["data"], $track_item);
+            array_push($records_arr["data"], $record_item);
         }
 
-        echo json_encode($tracks_arr);
+        echo json_encode($records_arr);
 
     } else {
         echo json_encode(["message" => "No tracks found."]);
@@ -78,7 +78,7 @@ function readOne() {
     $record->release_type = $row["release_type"];
     $record->release_year = $row["release_year"];
 
-    $track_arr = [
+    $record_item = [
         "id" => $record->id,
         "artist" => $record->artist,
         "title" => $record->title,
@@ -86,7 +86,7 @@ function readOne() {
         "release_year" => $record->release_year,
     ];
 
-    print_r(json_encode($track_arr));
+    print_r(json_encode($record_item));
 }
 
 
