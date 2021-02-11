@@ -46,7 +46,7 @@
     <div class="section no-pad-bot">
         <div class="container">
             <br><br>
-            <h1 class="header center teal-text text-lighten-2">Your online record Database</h1>
+            <h1 class="header center teal-text text-lighten-2"><strong>Your online record Database</strong></h1>
             <div class="row center">
                 <h5 class="header col s12 light">Browse your favourite records in this amazing website</h5>
             </div>
