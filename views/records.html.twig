@@ -5,16 +5,39 @@
 
 {% include "./fragments/nav.html" %}
 
-<h1>Records:</h1>
-<ul>
-    {% for record in records %}
-        <li>{{ record.id }}
-            {{ record.artist }}
-            {{ record.title }}
-            {{ record.release_type }}
-            {{ record.release_year }}</li>
-    {% endfor %}
-</ul>
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="container">
+                <h1 class="header center teal-text text-lighten-2"><strong>Browse your favourite records</strong></h1>
+            </div>
+            {% for record in records %}
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="../public/img/background1.jpg" alt="record image">
+                                <span class="card-title">{{ record.title }}</span>
+                            </div>
+                            <div class="card-content">
+                                <ul>
+                                    <li><strong>ID:</strong> {{ record.id }}</li>
+                                    <li><strong>Artist:</strong> {{ record.artist }}</li>
+                                    <li><strong>Title:</strong> {{ record.title }}</li>
+                                    <li><strong>Release Type:</strong> {{ record.release_type }}</li>
+                                    <li><strong>Release Year:</strong> {{ record.release_year }}</li>
+                                </ul>
+                            </div>
+                            <div class="card-action">
+                                <a href="" class="waves-effect waves-light btn">details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% include "./fragments/footer.html" %}
 {% include "./fragments/scripts.html" %}
