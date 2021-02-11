@@ -1,3 +1,10 @@
+<!doctype html>
+<html lang="en">
+{% include "./fragments/head.html" %}
+<body>
+
+{% include "./fragments/nav.html" %}
+
 <h1>Records:</h1>
 <ul>
     {% for record in records %}
@@ -9,8 +16,9 @@
     {% endfor %}
 </ul>
 
-{{ record.id }}
-{{ record.artist }}
-{{ record.title }}
-{{ record.release_type }}
-{{ record.release_year }}
+{% include "./fragments/footer.html" %}
+{% include "./fragments/scripts.html" %}
+
+</body>
+</html>
+

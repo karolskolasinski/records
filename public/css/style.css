@@ -58,3 +58,7 @@ p {
 footer.page-footer {
     margin: 0;
 }
+
+.cp-5 {
+    padding: 5rem 0;
+}
