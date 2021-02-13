@@ -1,8 +1,8 @@
 <?php
 
 function setup(): Record {
-    require_once "../config/Database.php";
-    require_once "../model/Record.php";
+    require_once "./config/Database.php";
+    require_once "./model/Record.php";
 
     $database = new Database();
     $conn = $database->connect();
