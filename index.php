@@ -19,7 +19,9 @@ switch ($page) {
         echo $twig->render("index.twig");
         break;
     case "records":
-        echo $twig->render("records.twig", ["records" => readAll()]);
+        echo $twig->render("records.twig", [
+            "records" => readAll(),
+        ]);
         break;
     default:
         header("HTTP/1.0 404 Not Found");
