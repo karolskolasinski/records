@@ -14,7 +14,7 @@ class Record {
         $this->conn = $conn;
     }
 
-    public function readAll() {
+    public function readAllRecords() {
         $query = /** @lang MySQL */
             "SELECT *
         FROM
@@ -26,7 +26,7 @@ class Record {
         return $stmt;
     }
 
-    public function readOne() {
+    public function readOneRecord() {
         $query = /** @lang MySQL */
             "SELECT *
         FROM
@@ -41,7 +41,7 @@ class Record {
         return $stmt;
     }
 
-    public function create() {
+    public function createRecord() {
         $query = /** @lang MySQL */
             "INSERT INTO
             record
@@ -68,7 +68,7 @@ class Record {
         return false;
     }
 
-    public function update() {
+    public function updateRecord() {
         $query = /** @lang MySQL */
             "UPDATE 
             record
@@ -99,7 +99,7 @@ class Record {
         return false;
     }
 
-    public function delete() {
+    public function deleteRecord() {
         $query = /** @lang MySQL */
             "DELETE FROM 
             record

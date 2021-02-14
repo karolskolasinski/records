@@ -5,6 +5,7 @@ use Twig\Loader\FilesystemLoader;
 
 require_once "./vendor/autoload.php";
 require_once "./service/recordService.php";
+require_once "./service/trackService.php";
 
 $loader = new FilesystemLoader("./views");
 $twig = new Environment($loader);
@@ -20,7 +21,14 @@ switch ($page) {
         break;
     case "records":
         echo $twig->render("records.twig", [
-            "records" => readAll(),
+            "records" => readAllRecords(),
+        ]);
+        break;
+    case "record":
+        $record_id = $_GET["record_id"];
+        echo $twig->render("record.twig", [
+            "record" => readOneRecord($record_id),
+            "details" => readAllTracksForSpecificRecord($record_id),
         ]);
         break;
     default:

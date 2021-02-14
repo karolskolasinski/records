@@ -1,6 +1,6 @@
 <?php
 
-function setup(): Record {
+function setupRecord(): Record {
     require_once "./config/Database.php";
     require_once "./model/Record.php";
 
@@ -11,9 +11,9 @@ function setup(): Record {
 }
 
 
-function readAll() {
-    $record = setup();
-    $all = $record->readAll();
+function readAllRecords() {
+    $record = setupRecord();
+    $all = $record->readAllRecords();
     $row_counter = $all->rowCount();
 
     if ($row_counter > 0) {
@@ -41,16 +41,16 @@ function readAll() {
         return $records_arr;
 
     } else {
-        return ["message" => "No tracks found."];
+        return ["message" => "No records found."];
     }
 }
 
 
-function readOne($id) {
-    $record = setup();
+function readOneRecord($id) {
+    $record = setupRecord();
     $record->id = $id;
 
-    $one = $record->readOne();
+    $one = $record->readOneRecord();
     $row = $one->fetch(PDO::FETCH_ASSOC);
 
     $record->artist = $row["artist"];
@@ -70,8 +70,8 @@ function readOne($id) {
 }
 
 
-function create() {
-    $record = setup();
+function createRecord() {
+    $record = setupRecord();
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -82,14 +82,14 @@ function create() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    return $record->create() ?
+    return $record->createRecord() ?
         ["message:" => "Record created."] :
         ["message:" => "Record not created."];
 }
 
 
-function update() {
-    $record = setup();
+function updateRecord() {
+    $record = setupRecord();
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -101,14 +101,14 @@ function update() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    return $record->update() ?
+    return $record->updateRecord() ?
         ["message:" => "Record updated."] :
         ["message:" => "Record not updated."];
 }
 
 
-function delete() {
-    $record = setup();
+function deleteRecord() {
+    $record = setupRecord();
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -116,7 +116,7 @@ function delete() {
 
     $record->id = $data->id;
 
-    return $record->delete() ?
+    return $record->deleteRecord() ?
         ["message:" => "Record deleted."] :
         ["message:" => "Record not deleted."];
 }

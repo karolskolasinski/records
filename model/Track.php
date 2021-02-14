@@ -12,7 +12,7 @@ class Track {
         $this->conn = $conn;
     }
 
-    public function readAll() {
+    public function readAllTracks() {
         $query = /** @lang MySQL */
             "SELECT
             t.id,
@@ -30,7 +30,28 @@ class Track {
         return $stmt;
     }
 
-    public function readOne() {
+    public function readAllTracksForSpecificRecord() {
+        $query = /** @lang MySQL */
+            "SELECT
+            t.id,
+            t.record_id,            
+            r.artist,
+            t.title
+        FROM
+            track t         
+        LEFT JOIN 
+            record r ON t.record_id = r.id
+        WHERE 
+             t.record_id = ?";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->record_id);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function readOneTrack() {
         $query = /** @lang MySQL */
             "SELECT
             t.id,
@@ -51,7 +72,7 @@ class Track {
         return $stmt;
     }
 
-    public function create() {
+    public function createTrack() {
         $query = /** @lang MySQL */
             "INSERT INTO 
             track
@@ -72,7 +93,7 @@ class Track {
         return false;
     }
 
-    public function update() {
+    public function updateTrack() {
         $query = /** @lang MySQL */
             "UPDATE 
             track
@@ -97,7 +118,7 @@ class Track {
         return false;
     }
 
-    public function delete() {
+    public function deleteTrack() {
         $query = /** @lang MySQL */
             "DELETE FROM 
             track

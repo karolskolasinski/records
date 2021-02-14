@@ -1,12 +1,8 @@
 <?php
 
-
-function setup(): Track {
-    header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json");
-
-    require_once "../config/Database.php";
-    require_once "../model/Track.php";
+function setupTrack(): Track {
+    require_once "./config/Database.php";
+    require_once "./model/Track.php";
 
     $database = new Database();
     $conn = $database->connect();
@@ -15,9 +11,9 @@ function setup(): Track {
 }
 
 
-function readAll() {
-    $track = setup();
-    $all = $track->readAll();
+function readAllTracks() {
+    $track = setupTrack();
+    $all = $track->readAllTracks();
     $row_counter = $all->rowCount();
 
     if ($row_counter > 0) {
@@ -48,11 +44,45 @@ function readAll() {
 }
 
 
-function readOne($id) {
-    $track = setup();
+function readAllTracksForSpecificRecord($rec_id) {
+    $track = setupTrack();
+    $track->record_id = $rec_id;
+    $all = $track->readAllTracksForSpecificRecord();
+    $row_counter = $all->rowCount();
+
+    if ($row_counter > 0) {
+        $tracks_arr = [];
+
+        while ($row = $all->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+
+            /** @var int $id */
+            /** @var int $record_id */
+            /** @var string $artist */
+            /** @var string $title */
+            $track_item = [
+                "id" => $id,
+                "record_id" => $record_id,
+                "artist" => $artist,
+                "title" => $title,
+            ];
+
+            array_push($tracks_arr, $track_item);
+        }
+
+        return $tracks_arr;
+
+    } else {
+        return ["message" => "No tracks found."];
+    }
+}
+
+
+function readOneTrack($id) {
+    $track = setupTrack();
     $track->id = $id;
 
-    $one = $track->readOne();
+    $one = $track->readOneTrack();
     $row = $one->fetch(PDO::FETCH_ASSOC);
 
     $track->record_id = $row["record_id"];
@@ -70,8 +100,8 @@ function readOne($id) {
 }
 
 
-function create() {
-    $track = setup();
+function createTrack() {
+    $track = setupTrack();
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -80,14 +110,14 @@ function create() {
     $track->record_id = $data->record_id;
     $track->title = $data->title;
 
-    return $track->create() ?
+    return $track->createTrack() ?
         ["message:" => "Track created."] :
         ["message:" => "Track not created."];
 }
 
 
-function update() {
-    $track = setup();
+function updateTrack() {
+    $track = setupTrack();
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -97,14 +127,14 @@ function update() {
     $track->record_id = $data->record_id;
     $track->title = $data->title;
 
-    return $track->update() ?
+    return $track->updateTrack() ?
         ["message:" => "Track updated."] :
         ["message:" => "Track not updated."];
 }
 
 
-function delete() {
-    $track = setup();
+function deleteTrack() {
+    $track = setupTrack();
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
@@ -112,7 +142,7 @@ function delete() {
 
     $track->id = $data->id;
 
-    return $track->delete() ?
+    return $track->deleteTrack() ?
         ["message:" => "Track deleted."] :
         ["message:" => "Track not deleted."];
 }
