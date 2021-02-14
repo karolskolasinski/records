@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+{% include "./fragments/head.html" %}
+<body>
+
+{% include "./fragments/nav.html" %}
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="container">
+                <h1 class="header center teal-text text-lighten-2"><strong>Add record</strong></h1>
+            </div>
+            <div class="row">
+                <form class="col s12 m6 offset-m3">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="artist" type="text" class="validate" required>
+                            <label for="artist">Artist</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="title" type="text" class="validate" required>
+                            <label for="title">Title</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="release-type" required>
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="cd">cd</option>
+                                <option value="vinyl">vinyl</option>
+                                <option value="mp3">mp3</option>
+                            </select>
+                            <label for="release-type">Release type</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="release-year" type="text" class="validate" required>
+                            <label for="release-year">Release year</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "./fragments/footer.html" %}
+{% include "./fragments/scripts.html" %}
+
+</body>
+</html>
+

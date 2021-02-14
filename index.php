@@ -31,6 +31,9 @@ switch ($page) {
             "details" => readAllTracksForSpecificRecord($record_id),
         ]);
         break;
+    case "add-record":
+        echo $twig->render("add-record.twig");
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         echo $twig->render("404.twig");

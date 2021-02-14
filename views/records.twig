@@ -9,7 +9,9 @@
     <div class="section">
         <div class="row">
             <div class="container">
-                <h1 class="header center teal-text text-lighten-2"><strong>Browse your favourite records</strong></h1>
+                <h1 class="header center teal-text text-lighten-2">
+                    <strong>Browse your favourite records</strong>
+                </h1>
             </div>
             {% for record in records %}
                 <div class="col s12 m4">
@@ -29,7 +31,8 @@
                                 </ul>
                             </div>
                             <div class="card-action">
-                                <a class="waves-effect waves-light btn" href="./?p=record&record_id={{ record.id }}">Details</a>
+                                <a class="waves-effect waves-light btn" href="./?p=record&record_id={{ record.id }}">
+                                    Details</a>
                             </div>
                         </div>
                     </div>
@@ -46,8 +49,9 @@
                             <p>Click the button below to add a new item:</p>
                             <br>
                             <br>
-                            <a class="btn-floating btn-large waves-effect waves-light red"><i
-                                        class="material-icons">add</i></a>
+                            <a class="btn-floating btn-large waves-effect waves-light red" href="./?p=add-record">
+                                <i class="material-icons">add</i>
+                            </a>
                             <br>
                             <br>
                         </div>
