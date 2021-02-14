@@ -32,7 +32,7 @@ function setup(): Track {
 
 function readAll() {
     $track = setup();
-    $all = $track->readAll();
+    $all = $track->readAllTracks();
     $row_counter = $all->rowCount();
 
     if ($row_counter > 0) {
@@ -68,7 +68,7 @@ function readOne() {
     $track = setup();
     $track->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-    $one = $track->readOne();
+    $one = $track->readOneTrack();
     $row = $one->fetch(PDO::FETCH_ASSOC);
 
     $track->record_id = $row["record_id"];
@@ -96,9 +96,9 @@ function create() {
     $track->record_id = $data->record_id;
     $track->title = $data->title;
 
-    echo json_encode($track->create() ?
-        ["message:" => "Track created."] :
-        ["message:" => "Track not created."]
+    echo json_encode($track->createTrack() ?
+        ["message" => "Track created."] :
+        ["message" => "Track not created."]
     );
 }
 
@@ -114,9 +114,9 @@ function update() {
     $track->record_id = $data->record_id;
     $track->title = $data->title;
 
-    echo json_encode($track->update() ?
-        ["message:" => "Track updated."] :
-        ["message:" => "Track not updated."]
+    echo json_encode($track->updateTrack() ?
+        ["message" => "Track updated."] :
+        ["message" => "Track not updated."]
     );
 }
 
@@ -130,9 +130,9 @@ function delete() {
 
     $track->id = $data->id;
 
-    echo json_encode($track->delete() ?
-        ["message:" => "Track deleted."] :
-        ["message:" => "Track not deleted."]
+    echo json_encode($track->deleteTrack() ?
+        ["message" => "Track deleted."] :
+        ["message" => "Track not deleted."]
     );
 }
 

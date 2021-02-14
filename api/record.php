@@ -32,7 +32,7 @@ function setup(): Record {
 
 function readAll() {
     $record = setup();
-    $all = $record->readAll();
+    $all = $record->readAllRecords();
     $row_counter = $all->rowCount();
 
     if ($row_counter > 0) {
@@ -70,7 +70,7 @@ function readOne() {
     $record = setup();
     $record->id = isset($_GET["id"]) ? $_GET["id"] : die();
 
-    $one = $record->readOne();
+    $one = $record->readOneRecord();
     $row = $one->fetch(PDO::FETCH_ASSOC);
 
     $record->artist = $row["artist"];
@@ -102,9 +102,9 @@ function create() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    echo json_encode($record->create() ?
-        ["message:" => "Record created."] :
-        ["message:" => "Record not created."]
+    echo json_encode($record->createRecord() ?
+        ["message" => "Record created."] :
+        ["message" => "Record not created."]
     );
 }
 
@@ -122,9 +122,9 @@ function update() {
     $record->release_type = $data->release_type;
     $record->release_year = $data->release_year;
 
-    echo json_encode($record->update() ?
-        ["message:" => "Record updated."] :
-        ["message:" => "Record not updated."]
+    echo json_encode($record->updateRecord() ?
+        ["message" => "Record updated."] :
+        ["message" => "Record not updated."]
     );
 }
 
@@ -138,9 +138,9 @@ function delete() {
 
     $record->id = $data->id;
 
-    echo json_encode($record->delete() ?
-        ["message:" => "Record deleted."] :
-        ["message:" => "Record not deleted."]
+    echo json_encode($record->deleteRecord() ?
+        ["message" => "Record deleted."] :
+        ["message" => "Record not deleted."]
     );
 }
 

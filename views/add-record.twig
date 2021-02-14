@@ -8,46 +8,54 @@
 <div class="container">
     <div class="section">
         <div class="row">
-            <div class="container">
-                <h1 class="header center teal-text text-lighten-2"><strong>Add record</strong></h1>
-            </div>
-            <div class="row">
-                <form class="col s12 m6 offset-m3">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="artist" type="text" class="validate" required>
-                            <label for="artist">Artist</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="title" type="text" class="validate" required>
-                            <label for="title">Title</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <select id="release-type" required>
-                                <option value="" disabled selected>Choose your option</option>
-                                <option value="cd">cd</option>
-                                <option value="vinyl">vinyl</option>
-                                <option value="mp3">mp3</option>
-                            </select>
-                            <label for="release-type">Release type</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="release-year" type="text" class="validate" required>
-                            <label for="release-year">Release year</label>
-                        </div>
-                    </div>
-                    <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
-                        <i class="material-icons right">send</i>
-                    </button>
-                </form>
+            {% if message is not same as null %}
+                <div class="container cp-5">
+                    <h1 class="center teal-text text-lighten-3"><i class="large material-icons">star</i></h1>
+                    <h1 class="header center teal-text text-lighten-2"><strong>{{ message.message }}</strong></h1>
+                </div>
+            {% else %}
 
-            </div>
+                <div class="container">
+                    <h1 class="header center teal-text text-lighten-2"><strong>Add a record</strong></h1>
+                </div>
+                <div class="row">
+                    <form class="col s12 m6 offset-m3" method="post" action="./?p=add-record">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="artist" type="text" class="validate" name="artist" required>
+                                <label for="artist">Artist</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="title" type="text" class="validate" name="title" required>
+                                <label for="title">Title</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select id="release-type" name="release-type" required>
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="cd">cd</option>
+                                    <option value="vinyl">vinyl</option>
+                                    <option value="mp3">mp3</option>
+                                </select>
+                                <label for="release-type">Release type</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="release-year" type="text" class="validate" name="release-year" required>
+                                <label for="release-year">Release year</label>
+                            </div>
+                        </div>
+                        <button class="btn waves-effect waves-light right" type="submit" name="submit" value="submit">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
+                </div>
+
+            {% endif %}
         </div>
     </div>
 </div>

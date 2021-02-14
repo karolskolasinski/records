@@ -32,7 +32,18 @@ switch ($page) {
         ]);
         break;
     case "add-record":
-        echo $twig->render("add-record.twig");
+        $message = null;
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $artist = htmlspecialchars($_POST["artist"]);
+            $title = htmlspecialchars($_POST["title"]);
+            $release_type = htmlspecialchars($_POST["release-type"]);
+            $release_year = htmlspecialchars($_POST["release-year"]);
+            $message = createRecord($artist, $title, $release_type, $release_year);
+        }
+
+        echo $twig->render("add-record.twig", [
+            "message" => $message,
+        ]);
         break;
     default:
         header("HTTP/1.0 404 Not Found");
