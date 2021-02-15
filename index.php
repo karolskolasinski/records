@@ -54,7 +54,7 @@ switch ($page) {
             $record_id = $_GET["record-id"];
         }
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $record_id = htmlspecialchars($_POST["rec_id"]);
+            $record_id = htmlspecialchars($_POST["record-id"]);
             $artist = htmlspecialchars($_POST["artist"]);
             $title = htmlspecialchars($_POST["title"]);
             $release_type = htmlspecialchars($_POST["release-type"]);
@@ -73,6 +73,9 @@ switch ($page) {
             "records" => readAllRecords(),
             "message" => $message,
         ]);
+        break;
+    case "add-track":
+
         break;
     default:
         header("HTTP/1.0 404 Not Found");
