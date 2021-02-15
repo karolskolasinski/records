@@ -25,7 +25,7 @@ switch ($page) {
         ]);
         break;
     case "record":
-        $record_id = $_GET["record_details"];
+        $record_id = $_GET["record-id"];
         echo $twig->render("record.twig", [
             "record" => readOneRecord($record_id),
             "details" => readAllTracksForSpecificRecord($record_id),
@@ -42,6 +42,14 @@ switch ($page) {
         }
 
         echo $twig->render("add-record.twig", [
+            "message" => $message,
+        ]);
+        break;
+    case "delete-record":
+        $record_id = $_GET["record-id"];
+        $message = deleteRecord($record_id);
+        echo $twig->render("records.twig", [
+            "records" => readAllRecords(),
             "message" => $message,
         ]);
         break;

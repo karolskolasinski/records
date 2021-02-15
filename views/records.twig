@@ -10,7 +10,11 @@
         <div class="row">
             <div class="container">
                 <h1 class="header center teal-text text-lighten-2">
-                    <strong>Browse your favourite records</strong>
+                    {% if message is not same as null %}
+                        <strong>{{ message.message }}</strong>
+                    {% else %}
+                        <strong>Browse your favourite records</strong>
+                    {% endif %}
                 </h1>
             </div>
             {% for record in records %}
@@ -32,7 +36,7 @@
                             </div>
                             <div class="card-action">
                                 <a class="waves-effect waves-light btn bmtb-_5"
-                                   href="./?p=record&record_details={{ record.id }}">
+                                   href="./?p=record&record-id={{ record.id }}">
                                     Details
                                 </a>
                                 <a class="waves-effect waves-light btn bmtb-_5"
@@ -50,7 +54,7 @@
 
                                         <div class="center">
                                             <a class="waves-effect waves-light btn red lighten-2 bmtb-_5 btn-large"
-                                               href="./?p=record&record_delete={{ record.id }}">Yes</a>
+                                               href="./?p=delete-record&record-id={{ record.id }}">Yes</a>
 
                                             <a class="modal-close waves-effect waves-light btn bmtb-_5 btn-large">No</a>
                                         </div>
@@ -72,7 +76,7 @@
                             <p>Click the button below to add a new item:</p>
                             <br>
                             <br>
-                            <a class="btn-floating btn-large waves-effect waves-light red" href="./?p=add-record">
+                            <a class="btn-floating btn-large waves-effect waves-light red pulse" href="./?p=add-record">
                                 <i class="material-icons">add</i>
                             </a>
                             <br>
