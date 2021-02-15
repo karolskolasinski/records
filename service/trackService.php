@@ -78,9 +78,9 @@ function readAllTracksForSpecificRecord($rec_id) {
 }
 
 
-function readOneTrack($id) {
+function readOneTrack($trk_id) {
     $track = setupTrack();
-    $track->id = $id;
+    $track->id = $trk_id;
 
     $one = $track->readOneTrack();
     $row = $one->fetch(PDO::FETCH_ASSOC);

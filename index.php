@@ -25,7 +25,7 @@ switch ($page) {
         ]);
         break;
     case "record":
-        $record_id = $_GET["record_id"];
+        $record_id = $_GET["record_details"];
         echo $twig->render("record.twig", [
             "record" => readOneRecord($record_id),
             "details" => readAllTracksForSpecificRecord($record_id),

@@ -103,14 +103,9 @@ function updateRecord() {
 }
 
 
-function deleteRecord() {
+function deleteRecord($rec_id) {
     $record = setupRecord();
-    header("Access-Control-Allow-Methods: POST");
-    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
-
-    $data = json_decode(file_get_contents("php://input"));
-
-    $record->id = $data->id;
+    $record->id = $rec_id;
 
     return $record->deleteRecord() ?
         ["message" => "Record deleted."] :
