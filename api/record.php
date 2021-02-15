@@ -61,7 +61,7 @@ function readAll() {
         echo json_encode($records_arr);
 
     } else {
-        echo json_encode(["message" => "No tracks found."]);
+        echo json_encode(["message" => "No tracks found"]);
     }
 }
 
@@ -103,8 +103,8 @@ function create() {
     $record->release_year = $data->release_year;
 
     echo json_encode($record->createRecord() ?
-        ["message" => "Record created."] :
-        ["message" => "Record not created."]
+        ["message" => "Record created"] :
+        ["message" => "Record not created"]
     );
 }
 
@@ -123,8 +123,8 @@ function update() {
     $record->release_year = $data->release_year;
 
     echo json_encode($record->updateRecord() ?
-        ["message" => "Record updated."] :
-        ["message" => "Record not updated."]
+        ["message" => "Record updated"] :
+        ["message" => "Record not updated"]
     );
 }
 
@@ -139,8 +139,8 @@ function delete() {
     $record->id = $data->id;
 
     echo json_encode($record->deleteRecord() ?
-        ["message" => "Record deleted."] :
-        ["message" => "Record not deleted."]
+        ["message" => "Record deleted"] :
+        ["message" => "Record not deleted"]
     );
 }
 

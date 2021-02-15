@@ -71,14 +71,14 @@ class Record {
     public function updateRecord() {
         $query = /** @lang MySQL */
             "UPDATE 
-            record
+            record r
         SET
-            artist = :artist,
-            title = :title,
-            release_type = :release_type,
-            release_year = :release_year
+            r.artist = :artist,
+            r.title = :title,
+            r.release_type = :release_type,
+            r.release_year = :release_year
         WHERE 
-            id = :id";
+            r.id = :id";
 
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));

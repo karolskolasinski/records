@@ -59,7 +59,7 @@ function readAll() {
         echo json_encode($tracks_arr);
 
     } else {
-        echo json_encode(["message" => "No tracks found."]);
+        echo json_encode(["message" => "No tracks found"]);
     }
 }
 
@@ -97,8 +97,8 @@ function create() {
     $track->title = $data->title;
 
     echo json_encode($track->createTrack() ?
-        ["message" => "Track created."] :
-        ["message" => "Track not created."]
+        ["message" => "Track created"] :
+        ["message" => "Track not created"]
     );
 }
 
@@ -115,8 +115,8 @@ function update() {
     $track->title = $data->title;
 
     echo json_encode($track->updateTrack() ?
-        ["message" => "Track updated."] :
-        ["message" => "Track not updated."]
+        ["message" => "Track updated"] :
+        ["message" => "Track not updated"]
     );
 }
 
@@ -131,8 +131,8 @@ function delete() {
     $track->id = $data->id;
 
     echo json_encode($track->deleteTrack() ?
-        ["message" => "Track deleted."] :
-        ["message" => "Track not deleted."]
+        ["message" => "Track deleted"] :
+        ["message" => "Track not deleted"]
     );
 }
 

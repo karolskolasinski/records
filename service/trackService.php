@@ -39,7 +39,7 @@ function readAllTracks() {
         return $tracks_arr;
 
     } else {
-        return ["message" => "No tracks found."];
+        return ["message" => "No tracks found"];
     }
 }
 
@@ -73,7 +73,7 @@ function readAllTracksForSpecificRecord($rec_id) {
         return $tracks_arr;
 
     } else {
-        return ["message" => "No tracks found."];
+        return ["message" => "No tracks found"];
     }
 }
 
@@ -111,8 +111,8 @@ function createTrack() {
     $track->title = $data->title;
 
     return $track->createTrack() ?
-        ["message:" => "Track created."] :
-        ["message:" => "Track not created."];
+        ["message:" => "Track created"] :
+        ["message:" => "Track not created"];
 }
 
 
@@ -128,8 +128,8 @@ function updateTrack() {
     $track->title = $data->title;
 
     return $track->updateTrack() ?
-        ["message:" => "Track updated."] :
-        ["message:" => "Track not updated."];
+        ["message:" => "Track updated"] :
+        ["message:" => "Track not updated"];
 }
 
 
@@ -143,8 +143,8 @@ function deleteTrack() {
     $track->id = $data->id;
 
     return $track->deleteTrack() ?
-        ["message:" => "Track deleted."] :
-        ["message:" => "Track not deleted."];
+        ["message:" => "Track deleted"] :
+        ["message:" => "Track not deleted"];
 }
 
 ?>
