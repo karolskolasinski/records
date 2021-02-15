@@ -21,29 +21,40 @@
                             <div class="details-container">
                                 <div>
                                     <h4>Record:</h4>
-                                    <ul>
-                                        <li><strong>ID:</strong> {{ record.id }}</li>
-                                        <li><strong>Artist:</strong> {{ record.artist }}</li>
-                                        <li><strong>Title:</strong> {{ record.title }}</li>
-                                        <li><strong>Release Type:</strong> {{ record.release_type }}</li>
-                                        <li><strong>Release Year:</strong> {{ record.release_year }}</li>
+                                    <ul class="collection">
+                                        <li class="collection-item"><strong>ID:</strong> {{ record.id }}</li>
+                                        <li class="collection-item"><strong>Artist:</strong> {{ record.artist }}</li>
+                                        <li class="collection-item"><strong>Title:</strong> {{ record.title }}</li>
+                                        <li class="collection-item"><strong>Release Type:</strong> {{ record.release_type }}</li>
+                                        <li class="collection-item"><strong>Release Year:</strong> {{ record.release_year }}</li>
                                     </ul>
                                 </div>
                                 <div>
                                     <h4>Tracks:</h4>
-                                    <ul>
+                                    {% if details.message is not empty %}
+                                        <p class="center">{{ details.message }}</p>
+                                        <p class="center">Click the button below to add a new track:</p>
+                                        <div class="center cp-2">
+                                            <a class="btn-floating btn-large waves-effect waves-light red pulse"
+                                               href="./?p=add-record">
+                                                <i class="material-icons">add</i>
+                                            </a>
+                                        </div>
+                                    {% else %}
                                         {% for track in details %}
-                                            <li><strong>ID:</strong> {{ track.id }}</li>
-                                            <li><strong>Title:</strong> {{ track.title }}</li>
-                                            <li><strong>Artist:</strong> {{ track.artist }}</li>
-                                            <br>
+                                            <ul class="collection">
+                                                <li class="collection-item"><strong>ID:</strong> {{ track.id }}</li>
+                                                <li class="collection-item"><strong>Title:</strong> {{ track.title }}</li>
+                                                <li class="collection-item"><strong>Artist:</strong> {{ track.artist }}</li>
+                                            </ul>
                                         {% endfor %}
-                                    </ul>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                         <div class="card-action">
                             <a class="waves-effect waves-light btn" href="javascript:history.back()">Back</a>
+
                         </div>
                     </div>
                 </div>

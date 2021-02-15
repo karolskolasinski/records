@@ -53,7 +53,9 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <select id="release-type" name="release-type" required>
-                                    <option value="" disabled>Choose your option</option>
+                                    <option value="" disabled
+                                            {% if record is same as null %} selected {% endif %}>Choose your option
+                                    </option>
 
                                     <option value="cd"
                                             {% if record.release_type == "cd" %} selected {% endif %}>cd
