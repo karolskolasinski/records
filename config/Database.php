@@ -14,10 +14,10 @@ class Database {
     private $db_conn;
 
     public function __construct() {
-        $this->db_host = $_ENV['DB_CONFIG_HOST'];
-        $this->db_user = $_ENV['DB_CONFIG_USER'];
-        $this->db_pass = $_ENV['DB_CONFIG_PASS'];
-        $this->db_name = $_ENV['DB_CONFIG_NAME'];
+        $this->db_host = getenv('DB_CONFIG_HOST');
+        $this->db_user = getenv('DB_CONFIG_USER');
+        $this->db_pass = getenv('DB_CONFIG_PASS');
+        $this->db_name = getenv('DB_CONFIG_NAME');
     }
 
     public function connect() {
