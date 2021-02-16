@@ -103,13 +103,14 @@ switch ($page) {
         }
         break;
     case "update-track":
-        $message = null;
-        $record_id = null;
-        $track_id = null;
-
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $record_id = $_GET["record-id"];
             $track_id = $_GET["track-id"];
+
+            echo $twig->render("track-form.twig", [
+                "record" => readOneRecord($record_id),
+                "track" => readOneTrack($track_id),
+            ]);
         }
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -117,13 +118,13 @@ switch ($page) {
             $track_id = htmlspecialchars($_POST["track-id"]);
             $title = htmlspecialchars($_POST["title"]);
             $message = updateTrack($track_id, $record_id, $title);
-        }
 
-        echo $twig->render("track-form.twig", [
-            "record" => readOneRecord($record_id),
-            "track" => readOneTrack($track_id),
-            "message" => $message,
-        ]);
+            echo $twig->render("record.twig", [
+                "message" => $message,
+                "record" => readOneRecord($record_id),
+                "details" => readAllTracksForSpecificRecord($record_id),
+            ]);
+        }
         break;
     case "delete-track":
         $record_id = $_GET["record-id"];
