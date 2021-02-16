@@ -33,17 +33,21 @@ switch ($page) {
         ]);
         break;
     case "add-record":
-        $message = null;
+        if ($_SERVER["REQUEST_METHOD"] === "GET") {
+            echo $twig->render("record-form.twig");
+        }
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $artist = htmlspecialchars($_POST["artist"]);
             $title = htmlspecialchars($_POST["title"]);
             $release_type = htmlspecialchars($_POST["release-type"]);
             $release_year = htmlspecialchars($_POST["release-year"]);
-            $message = createRecord($artist, $title, $release_type, $release_year);
+            $result = createRecord($artist, $title, $release_type, $release_year);
         }
 
-        echo $twig->render("record-form.twig", [
-            "message" => $message,
+        echo $twig->render("record.twig", [
+            "message" => $result,
+            "record" => readOneRecord($result["record_id"]),
         ]);
         break;
     case "update-record":

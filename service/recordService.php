@@ -78,9 +78,14 @@ function createRecord($artist, $title, $release_type, $release_year) {
     $record->release_type = $release_type;
     $record->release_year = $release_year;
 
-    return $record->createRecord() ?
-        ["message" => "Record created"] :
-        ["message" => "Record not created"];
+    $result = $record->createRecord();
+
+    return $result["is_inserted"] ? [
+        "message" => "Record created",
+        "record_id" => $result["record_id"]
+    ] : [
+        "message" => "Record not created"
+    ];
 }
 
 

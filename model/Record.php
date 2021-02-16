@@ -61,11 +61,14 @@ class Record {
         $stmt->bindParam(":release_type", $this->release_type);
         $stmt->bindParam(":release_year", $this->release_year);
         if ($stmt->execute()) {
-            return true;
+            return [
+                "is_inserted" => true,
+                "record_id" => $this->conn->lastInsertId(),
+            ];
         }
 
         printf("Error: %s.\n", $stmt->error);
-        return false;
+        return ["is_inserted" => false,];
     }
 
     public function updateRecord() {

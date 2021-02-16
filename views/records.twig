@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 {% include "./fragments/head.html" %}
+<head>
+    <link rel="stylesheet" type="text/css" href="../public/css/style.css" />
+</head>
 <body>
 
 {% include "./fragments/nav.html" %}
@@ -10,11 +13,13 @@
         <div class="row">
             <div class="container">
                 <h1 class="header center teal-text text-lighten-2">
-                    {% if message is not same as null %}
-                        <strong>{{ message.message }}</strong>
-                    {% else %}
-                        <strong>Browse your favourite records</strong>
-                    {% endif %}
+                    <strong>
+                        {% if message is not same as null %}
+                            {{ message.message }}
+                        {% else %}
+                            Browse your favourite records
+                        {% endif %}
+                    </strong>
                 </h1>
             </div>
             {% for record in records %}
@@ -53,7 +58,7 @@
                                         <h4>Are you sure you want to delete?</h4>
 
                                         <div class="center">
-                                            <a class="waves-effect waves-light btn red lighten-2 bmtb-_5 btn-large"
+                                            <a class="waves-effect waves-light btn red lighten-2 bmtb-_5 bmlr-2 btn-large"
                                                href="./?p=delete-record&record-id={{ record.id }}">Yes</a>
 
                                             <a class="modal-close waves-effect waves-light btn bmtb-_5 btn-large">No</a>
@@ -70,12 +75,13 @@
                     <div class="card">
                         <div class="card-image">
                             <img src="./public/img/background2.jpg" alt="record image">
-                            <span class="card-title">Add record to database</span>
+                            <span class="card-title">Add a record to database</span>
                         </div>
                         <div class="card-content center">
                             <p>Click the button below to add a new item:</p>
                             <div class="cp-2">
-                                <a class="btn-floating btn-large waves-effect waves-light red pulse" href="./?p=add-record">
+                                <a class="btn-floating btn-large waves-effect waves-light red pulse"
+                                   href="./?p=add-record">
                                     <i class="material-icons">add</i>
                                 </a>
                             </div>
