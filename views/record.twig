@@ -9,7 +9,15 @@
     <div class="section">
         <div class="row">
             <div class="container">
-                <h1 class="header center teal-text text-lighten-2"><strong>Record details</strong></h1>
+                <h1 class="header center teal-text text-lighten-2">
+                    <strong>
+                        {% if message is not same as null %}
+                            {{ message.message }}
+                        {% else %}
+                            Record details
+                        {% endif %}
+                    </strong>
+                </h1>
             </div>
             <div class="row">
                 <div class="col s12 m6 offset-m3">
@@ -76,7 +84,7 @@
                                                         </a>
 
                                                         <a class="waves-effect btn btn-flat red lighten-3 white-text bmtb-_5"
-                                                           href="./?p=delete-track&track-id={{ track.id }}">Delete
+                                                           href="./?p=delete-track&track-id={{ track.id }}&record-id={{ record.id }}">Delete
                                                         </a>
                                                     </div>
                                                 </li>

@@ -116,6 +116,18 @@ switch ($page) {
             "message" => $message,
         ]);
         break;
+    case "delete-track":
+        $record_id = $_GET["record-id"];
+        $track_id = $_GET["track-id"];
+        $message = deleteTrack($track_id);
+
+        echo $twig->render("record.twig", [
+            "record" => readOneRecord($record_id),
+            "details" => readAllTracksForSpecificRecord($record_id),
+            "message" => $message,
+        ]);
+
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         echo $twig->render("404.twig");
