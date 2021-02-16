@@ -80,7 +80,7 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="release-year" type="text" class="validate" name="release-year" required
+                            <input id="release-year" type="number" class="validate" name="release-year" required
                                     {% if record is not same as null %}
                                 value="{{ record.release_year }}"
                                     {% endif %}>

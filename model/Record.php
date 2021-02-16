@@ -30,9 +30,9 @@ class Record {
         $query = /** @lang MySQL */
             "SELECT *
         FROM
-            record r
+            record
         WHERE
-            r.id = ?";
+            id = ?";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->id);
@@ -74,14 +74,14 @@ class Record {
     public function updateRecord() {
         $query = /** @lang MySQL */
             "UPDATE 
-            record r
+            record
         SET
-            r.artist = :artist,
-            r.title = :title,
-            r.release_type = :release_type,
-            r.release_year = :release_year
+            artist = :artist,
+            title = :title,
+            release_type = :release_type,
+            release_year = :release_year
         WHERE 
-            r.id = :id";
+            id = :id";
 
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));

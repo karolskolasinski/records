@@ -44,21 +44,22 @@ switch ($page) {
             $release_year = htmlspecialchars($_POST["release-year"]);
             $result = createRecord($artist, $title, $release_type, $release_year);
             $record_id = $result["record_id"];
-        }
 
-        echo $twig->render("record.twig", [
-            "message" => $result,
-            "record" => readOneRecord($record_id),
-            "details" => readAllTracksForSpecificRecord($record_id),
-        ]);
+            echo $twig->render("record.twig", [
+                "message" => $result,
+                "record" => readOneRecord($record_id),
+                "details" => readAllTracksForSpecificRecord($record_id),
+            ]);
+        }
         break;
     case "update-record":
-        $message = null;
-        $record_id = null;
-
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $record_id = $_GET["record-id"];
+            echo $twig->render("record-form.twig", [
+                "record" => readOneRecord($record_id),
+            ]);
         }
+
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $record_id = htmlspecialchars($_POST["record-id"]);
             $artist = htmlspecialchars($_POST["artist"]);
@@ -66,12 +67,13 @@ switch ($page) {
             $release_type = htmlspecialchars($_POST["release-type"]);
             $release_year = htmlspecialchars($_POST["release-year"]);
             $message = updateRecord($record_id, $artist, $title, $release_type, $release_year);
-        }
 
-        echo $twig->render("record-form.twig", [
-            "record" => readOneRecord($record_id),
-            "message" => $message,
-        ]);
+            echo $twig->render("record.twig", [
+                "message" => $message,
+                "record" => readOneRecord($record_id),
+                "details" => readAllTracksForSpecificRecord($record_id),
+            ]);
+        }
         break;
     case "delete-record":
         $record_id = $_GET["record-id"];
