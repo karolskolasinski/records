@@ -3,11 +3,11 @@ USE `itpendent`;
 
 CREATE TABLE IF NOT EXISTS `record`
 (
-    `id`           int(11)      NOT NULL AUTO_INCREMENT,
+    `id`           int          NOT NULL AUTO_INCREMENT,
     `artist`       varchar(255) NOT NULL,
     `title`        varchar(255) NOT NULL,
     `release_type` varchar(30)  NOT NULL,
-    `release_year` int(11)      NOT NULL,
+    `release_year` int          NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -19,8 +19,8 @@ VALUES (null, 'Artist_1', 'Title_1', 'cd', 2001),
 
 CREATE TABLE IF NOT EXISTS `track`
 (
-    `id`        int(11)      NOT NULL AUTO_INCREMENT,
-    `record_id` int(11)      NOT NULL,
+    `id`        int          NOT NULL AUTO_INCREMENT,
+    `record_id` int          NOT NULL,
     `title`     varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`record_id`) REFERENCES `record` (id)

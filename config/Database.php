@@ -1,11 +1,24 @@
 <?php
 
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable("./");
+$dotenv->load();
+
+
 class Database {
-    private $db_host = "localhost";
-    private $db_user = "root";
-    private $db_pass = "";
-    private $db_name = "itpendent";
+    private $db_host;
+    private $db_user;
+    private $db_pass;
+    private $db_name;
     private $db_conn;
+
+    public function __construct() {
+        $this->db_host = $_ENV['DB_CONFIG_HOST'];
+        $this->db_user = $_ENV['DB_CONFIG_USER'];
+        $this->db_pass = $_ENV['DB_CONFIG_PASS'];
+        $this->db_name = $_ENV['DB_CONFIG_NAME'];
+    }
 
     public function connect() {
         $this->db_conn = null;

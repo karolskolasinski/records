@@ -2,6 +2,7 @@
     "require": {
         "twig/twig": "^3.3",
       "ext-json": "*",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.3"
     }
 }
