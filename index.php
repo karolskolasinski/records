@@ -43,11 +43,13 @@ switch ($page) {
             $release_type = htmlspecialchars($_POST["release-type"]);
             $release_year = htmlspecialchars($_POST["release-year"]);
             $result = createRecord($artist, $title, $release_type, $release_year);
+            $record_id = $result["record_id"];
         }
 
         echo $twig->render("record.twig", [
             "message" => $result,
-            "record" => readOneRecord($result["record_id"]),
+            "record" => readOneRecord($record_id),
+            "details" => readAllTracksForSpecificRecord($record_id),
         ]);
         break;
     case "update-record":

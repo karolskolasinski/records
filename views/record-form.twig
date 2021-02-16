@@ -8,99 +8,92 @@
 <div class="container">
     <div class="section">
         <div class="row">
-            {% if message is not same as null %}
-                <div class="container cp-5">
-                    <h1 class="center teal-text text-lighten-3"><i class="large material-icons">star</i></h1>
-                    <h1 class="header center teal-text text-lighten-2"><strong>{{ message.message }}</strong></h1>
-                </div>
-            {% else %}
-                <div class="container">
-                    <h1 class="header center teal-text text-lighten-2">
-                        <strong>
-                            {% if record is not same as null %}
-                                Update the record
-                            {% else %}
-                                Add a record
-                            {% endif %}
-                        </strong>
-                    </h1>
-                </div>
-
-                <div class="row">
-                    <form class="col s12 m6 offset-m3" method="post"
-                            {% if record is not same as null %}
-                                action="./?p=update-record"
-                            {% else %}
-                                action="./?p=add-record"
-                            {% endif %}
-                    >
-
+            <div class="container">
+                <h1 class="header center teal-text text-lighten-2">
+                    <strong>
                         {% if record is not same as null %}
-                            <input id="record-id" type="text" class="validate hide" name="record-id" required
-                                   value="{{ record.id }}">
-                            <label for="record-id"></label>
+                            Update the record
+                        {% else %}
+                            Add a record
                         {% endif %}
+                    </strong>
+                </h1>
+            </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="artist" type="text" class="validate" name="artist" required
-                                        {% if record is not same as null %}
-                                    value="{{ record.artist }}"
-                                        {% endif %}>
-                                <label for="artist">Artist</label>
-                            </div>
+            <div class="row">
+                <form class="col s12 m6 offset-m3" method="post"
+                        {% if record is not same as null %}
+                            action="./?p=update-record"
+                        {% else %}
+                            action="./?p=add-record"
+                        {% endif %}
+                >
+
+                    {% if record is not same as null %}
+                        <input id="record-id" type="text" class="validate hide" name="record-id" required
+                               value="{{ record.id }}">
+                        <label for="record-id"></label>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="artist" type="text" class="validate" name="artist" required
+                                    {% if record is not same as null %}
+                                value="{{ record.artist }}"
+                                    {% endif %}>
+                            <label for="artist">Artist</label>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="title" type="text" class="validate" name="title" required
-                                        {% if record is not same as null %}
-                                    value="{{ record.title }}"
-                                        {% endif %}>
-                                <label for="title">Title</label>
-                            </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="title" type="text" class="validate" name="title" required
+                                    {% if record is not same as null %}
+                                value="{{ record.title }}"
+                                    {% endif %}>
+                            <label for="title">Title</label>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select id="release-type" name="release-type" required>
-                                    <option value="" disabled
-                                            {% if record is same as null %} selected {% endif %}>Choose your option
-                                    </option>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="release-type" name="release-type" required>
+                                <option value="" disabled
+                                        {% if record is same as null %} selected {% endif %}>Choose your option
+                                </option>
 
-                                    <option value="cd"
-                                            {% if record.release_type == "cd" %} selected {% endif %}>cd
-                                    </option>
+                                <option value="cd"
+                                        {% if record.release_type == "cd" %} selected {% endif %}>cd
+                                </option>
 
-                                    <option value="vinyl"
-                                            {% if record.release_type == "vinyl" %} selected {% endif %}>vinyl
-                                    </option>
+                                <option value="vinyl"
+                                        {% if record.release_type == "vinyl" %} selected {% endif %}>vinyl
+                                </option>
 
-                                    <option value="mp3"
-                                            {% if record.release_type == "mp3" %} selected {% endif %}>mp3
-                                    </option>
-                                </select>
-                                <label for="release-type">Release type</label>
-                            </div>
+                                <option value="mp3"
+                                        {% if record.release_type == "mp3" %} selected {% endif %}>mp3
+                                </option>
+                            </select>
+                            <label for="release-type">Release type</label>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="release-year" type="text" class="validate" name="release-year" required
-                                        {% if record is not same as null %}
-                                    value="{{ record.release_year }}"
-                                        {% endif %}>
-                                <label for="release-year">Release year</label>
-                            </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="release-year" type="text" class="validate" name="release-year" required
+                                    {% if record is not same as null %}
+                                value="{{ record.release_year }}"
+                                    {% endif %}>
+                            <label for="release-year">Release year</label>
                         </div>
+                    </div>
 
-                        <button class="btn waves-effect waves-light right" type="submit" name="submit" value="submit">
-                            Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </form>
-                </div>
-            {% endif %}
+                    <button class="btn waves-effect waves-light right" type="submit" name="submit" value="submit">
+                        Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
