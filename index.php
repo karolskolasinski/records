@@ -84,22 +84,23 @@ switch ($page) {
         ]);
         break;
     case "add-track":
-        $message = null;
-
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $record_id = $_GET["record-id"];
+            echo $twig->render("track-form.twig", [
+                "record" => readOneRecord($record_id)]);
         }
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $record_id = htmlspecialchars($_POST["record-id"]);
             $title = htmlspecialchars($_POST["title"]);
             $message = createTrack($record_id, $title);
-        }
 
-        echo $twig->render("track-form.twig", [
-            "record" => readOneRecord($record_id),
-            "message" => $message,
-        ]);
+            echo $twig->render("record.twig", [
+                "message" => $message,
+                "record" => readOneRecord($record_id),
+                "details" => readAllTracksForSpecificRecord($record_id),
+            ]);
+        }
         break;
     case "update-track":
         $message = null;

@@ -8,69 +8,61 @@
 <div class="container">
     <div class="section">
         <div class="row">
-            {% if message is not same as null %}
-                <div class="container cp-5">
-                    <h1 class="center teal-text text-lighten-3"><i class="large material-icons">star</i></h1>
-                    <h1 class="header center teal-text text-lighten-2"><strong>{{ message.message }}</strong></h1>
-                </div>
-            {% else %}
-                <div class="container">
-                    <h1 class="header center teal-text text-lighten-2">
-                        <strong>
-                            {% if track is not same as null %}
-                                Update the track for record {{ record.id }}
-                            {% else %}
-                                Add a track for record {{ record.id }}
-                            {% endif %}
-                        </strong>
-                    </h1>
-                </div>
-
-                <div class="row">
-                    <form class="col s12 m6 offset-m3" method="post"
-                            {% if track is not same as null %}
-                                action="./?p=update-track"
-                            {% else %}
-                                action="./?p=add-track"
-                            {% endif %}
-                    >
-
+            <div class="container">
+                <h1 class="header center teal-text text-lighten-2">
+                    <strong>
                         {% if track is not same as null %}
-                            <input id="track-id" type="text" class="validate hide" name="track-id" required
-                                   value="{{ track.id }}">
-                            <label for="track-id"></label>
+                            Update the track for record {{ record.id }}
+                        {% else %}
+                            Add a track for record {{ record.id }}
                         {% endif %}
+                    </strong>
+                </h1>
+            </div>
 
-                        <input id="record-id" type="text" class="validate hide" name="record-id" required
-                               value="{{ record.id }}">
-                        <label for="record-id"></label>
+            <div class="row">
+                <form class="col s12 m6 offset-m3" method="post"
+                        {% if track is not same as null %}
+                            action="./?p=update-track"
+                        {% else %}
+                            action="./?p=add-track"
+                        {% endif %}
+                >
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="artist" type="text" class="validate" name="artist" required disabled
-                                       value="{{ record.artist }}">
-                                <label for="artist">Artist</label>
-                            </div>
+                    {% if track is not same as null %}
+                        <input id="track-id" type="text" class="validate hide" name="track-id" required
+                               value="{{ track.id }}">
+                        <label for="track-id"></label>
+                    {% endif %}
+
+                    <input id="record-id" type="text" class="validate hide" name="record-id" required
+                           value="{{ record.id }}">
+                    <label for="record-id"></label>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="artist" type="text" class="validate" name="artist" required disabled
+                                   value="{{ record.artist }}">
+                            <label for="artist">Artist</label>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="title" type="text" class="validate" name="title" required
-                                        {% if track is not same as null %}
-                                    value="{{ track.title }}"
-                                        {% endif %}>
-                                <label for="title">Title</label>
-                            </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="title" type="text" class="validate" name="title" required
+                                    {% if track is not same as null %}
+                                value="{{ track.title }}"
+                                    {% endif %}>
+                            <label for="title">Title</label>
                         </div>
+                    </div>
 
-                        <button class="btn waves-effect waves-light right" type="submit" name="submit" value="submit">
-                            Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </form>
-                </div>
-
-            {% endif %}
+                    <button class="btn waves-effect waves-light right" type="submit" name="submit" value="submit">
+                        Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
