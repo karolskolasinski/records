@@ -100,19 +100,15 @@ function readOneTrack($trk_id) {
 }
 
 
-function createTrack() {
+function createTrack($rec_id, $title) {
     $track = setupTrack();
-    header("Access-Control-Allow-Methods: POST");
-    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
-    $data = json_decode(file_get_contents("php://input"));
-
-    $track->record_id = $data->record_id;
-    $track->title = $data->title;
+    $track->record_id = $rec_id;
+    $track->title = $title;
 
     return $track->createTrack() ?
-        ["message:" => "Track created"] :
-        ["message:" => "Track not created"];
+        ["message" => "Track created"] :
+        ["message" => "Track not created"];
 }
 
 
@@ -128,8 +124,8 @@ function updateTrack() {
     $track->title = $data->title;
 
     return $track->updateTrack() ?
-        ["message:" => "Track updated"] :
-        ["message:" => "Track not updated"];
+        ["message" => "Track updated"] :
+        ["message" => "Track not updated"];
 }
 
 
@@ -143,8 +139,8 @@ function deleteTrack() {
     $track->id = $data->id;
 
     return $track->deleteTrack() ?
-        ["message:" => "Track deleted"] :
-        ["message:" => "Track not deleted"];
+        ["message" => "Track deleted"] :
+        ["message" => "Track not deleted"];
 }
 
 ?>

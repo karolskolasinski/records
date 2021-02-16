@@ -61,6 +61,7 @@ switch ($page) {
             $release_year = htmlspecialchars($_POST["release-year"]);
             $message = updateRecord($record_id, $artist, $title, $release_type, $release_year);
         }
+
         echo $twig->render("record-form.twig", [
             "record" => readOneRecord($record_id),
             "message" => $message,
@@ -75,6 +76,22 @@ switch ($page) {
         ]);
         break;
     case "add-track":
+        $message = null;
+
+        if ($_SERVER["REQUEST_METHOD"] === "GET") {
+            $record_id = $_GET["record-id"];
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $record_id = htmlspecialchars($_POST["record-id"]);
+            $title = htmlspecialchars($_POST["title"]);
+            $message = createTrack($record_id, $title);
+        }
+
+        echo $twig->render("track-form.twig", [
+            "record" => readOneRecord($record_id),
+            "message" => $message,
+        ]);
 
         break;
     default:

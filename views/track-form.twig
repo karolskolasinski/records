@@ -14,75 +14,33 @@
                     <h1 class="header center teal-text text-lighten-2"><strong>{{ message.message }}</strong></h1>
                 </div>
             {% else %}
-
                 <div class="container">
-                    <h1 class="header center teal-text text-lighten-2"><strong>Add a record</strong></h1>
+                    <h1 class="header center teal-text text-lighten-2">
+                        <strong>Add a track for record {{ record.id }}</strong>
+                    </h1>
                 </div>
-                <div class="row">
-                    <form class="col s12 m6 offset-m3" method="post"
-                            {% if record is not same as null %}
-                                action="./?p=update-record"
-                            {% else %}
-                                action="./?p=add-record"
-                            {% endif %}
-                    >
 
-                        {% if record is not same as null %}
-                            <input id="record-id" type="text" class="validate hide" name="record-id" value="{{ record.id }}">
-                            <label for="record-id"></label>
-                        {% endif %}
+                <div class="row">
+                    <form class="col s12 m6 offset-m3" method="post" action="./?p=add-track">
+                        <input id="record-id" type="text" class="validate hide" name="record-id"
+                               value="{{ record.id }}">
+                        <label for="record-id"></label>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="artist" type="text" class="validate" name="artist" required
-                                        {% if record is not same as null %}
-                                    value="{{ record.artist }}"
-                                        {% endif %}>
+                                <input id="artist" type="text" class="validate" name="artist" required disabled
+                                       value="{{ record.artist }}">
                                 <label for="artist">Artist</label>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="title" type="text" class="validate" name="title" required
-                                        {% if record is not same as null %}
-                                    value="{{ record.title }}"
-                                        {% endif %}>
+                                <input id="title" type="text" class="validate" name="title" required>
                                 <label for="title">Title</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select id="release-type" name="release-type" required>
-                                    <option value="" disabled
-                                            {% if record is same as null %} selected {% endif %}>Choose your option
-                                    </option>
 
-                                    <option value="cd"
-                                            {% if record.release_type == "cd" %} selected {% endif %}>cd
-                                    </option>
-
-                                    <option value="vinyl"
-                                            {% if record.release_type == "vinyl" %} selected {% endif %}>vinyl
-                                    </option>
-
-                                    <option value="mp3"
-                                            {% if record.release_type == "mp3" %} selected {% endif %}>mp3
-                                    </option>
-                                </select>
-                                <label for="release-type">Release type</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                {% if record is not same as null %}
-                                    <input id="release-year" type="text" class="validate" name="release-year" required
-                                           value="{{ record.release_year }}">
-                                {% else %}
-                                    <input id="release-year" type="text" class="validate" name="release-year" required>
-                                {% endif %}
-                                <label for="release-year">Release year</label>
-                            </div>
-                        </div>
                         <button class="btn waves-effect waves-light right" type="submit" name="submit" value="submit">
                             Submit
                             <i class="material-icons right">send</i>
