@@ -16,7 +16,13 @@
             {% else %}
                 <div class="container">
                     <h1 class="header center teal-text text-lighten-2">
-                        <strong>Add a track for record {{ record.id }}</strong>
+                        <strong>
+                            {% if track is not same as null %}
+                                Update the track for record {{ record.id }}
+                            {% else %}
+                                Add a track for record {{ record.id }}
+                            {% endif %}
+                        </strong>
                     </h1>
                 </div>
 
@@ -29,9 +35,11 @@
                             {% endif %}
                     >
 
-                        <input id="track-id" type="text" class="validate hide" name="track-id" required
-                               value="{{ track.id }}">
-                        <label for="track-id"></label>
+                        {% if track is not same as null %}
+                            <input id="track-id" type="text" class="validate hide" name="track-id" required
+                                   value="{{ track.id }}">
+                            <label for="track-id"></label>
+                        {% endif %}
 
                         <input id="record-id" type="text" class="validate hide" name="record-id" required
                                value="{{ record.id }}">

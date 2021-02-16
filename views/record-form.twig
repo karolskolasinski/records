@@ -15,7 +15,15 @@
                 </div>
             {% else %}
                 <div class="container">
-                    <h1 class="header center teal-text text-lighten-2"><strong>Add a record</strong></h1>
+                    <h1 class="header center teal-text text-lighten-2">
+                        <strong>
+                            {% if record is not same as null %}
+                                Update the record
+                            {% else %}
+                                Add a record
+                            {% endif %}
+                        </strong>
+                    </h1>
                 </div>
 
                 <div class="row">
@@ -28,8 +36,8 @@
                     >
 
                         {% if record is not same as null %}
-                            <input id="record-id" type="text" class="validate hide" name="record-id"
-                                   value="{{ record.id }}" disabled required>
+                            <input id="record-id" type="text" class="validate hide" name="record-id" required
+                                   value="{{ record.id }}">
                             <label for="record-id"></label>
                         {% endif %}
 
@@ -78,12 +86,10 @@
 
                         <div class="row">
                             <div class="input-field col s12">
-                                {% if record is not same as null %}
-                                    <input id="release-year" type="text" class="validate" name="release-year" required
-                                           value="{{ record.release_year }}">
-                                {% else %}
-                                    <input id="release-year" type="text" class="validate" name="release-year" required>
-                                {% endif %}
+                                <input id="release-year" type="text" class="validate" name="release-year" required
+                                        {% if record is not same as null %}
+                                    value="{{ record.release_year }}"
+                                        {% endif %}>
                                 <label for="release-year">Release year</label>
                             </div>
                         </div>
