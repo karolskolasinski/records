@@ -21,8 +21,19 @@
                 </div>
 
                 <div class="row">
-                    <form class="col s12 m6 offset-m3" method="post" action="./?p=add-track">
-                        <input id="record-id" type="text" class="validate hide" name="record-id"
+                    <form class="col s12 m6 offset-m3" method="post"
+                            {% if track is not same as null %}
+                                action="./?p=update-track"
+                            {% else %}
+                                action="./?p=add-track"
+                            {% endif %}
+                    >
+
+                        <input id="track-id" type="text" class="validate hide" name="track-id" required
+                               value="{{ track.id }}">
+                        <label for="track-id"></label>
+
+                        <input id="record-id" type="text" class="validate hide" name="record-id" required
                                value="{{ record.id }}">
                         <label for="record-id"></label>
 
@@ -36,7 +47,10 @@
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="title" type="text" class="validate" name="title" required>
+                                <input id="title" type="text" class="validate" name="title" required
+                                        {% if track is not same as null %}
+                                    value="{{ track.title }}"
+                                        {% endif %}>
                                 <label for="title">Title</label>
                             </div>
                         </div>

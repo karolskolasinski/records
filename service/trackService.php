@@ -78,9 +78,9 @@ function readAllTracksForSpecificRecord($rec_id) {
 }
 
 
-function readOneTrack($trk_id) {
+function readOneTrack($track_id) {
     $track = setupTrack();
-    $track->id = $trk_id;
+    $track->id = $track_id;
 
     $one = $track->readOneTrack();
     $row = $one->fetch(PDO::FETCH_ASSOC);
@@ -100,10 +100,10 @@ function readOneTrack($trk_id) {
 }
 
 
-function createTrack($rec_id, $title) {
+function createTrack($record_id, $title) {
     $track = setupTrack();
 
-    $track->record_id = $rec_id;
+    $track->record_id = $record_id;
     $track->title = $title;
 
     return $track->createTrack() ?
@@ -112,16 +112,12 @@ function createTrack($rec_id, $title) {
 }
 
 
-function updateTrack() {
+function updateTrack($track_id, $record_id, $title) {
     $track = setupTrack();
-    header("Access-Control-Allow-Methods: POST");
-    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
-    $data = json_decode(file_get_contents("php://input"));
-
-    $track->id = $data->id;
-    $track->record_id = $data->record_id;
-    $track->title = $data->title;
+    $track->id = $track_id;
+    $track->record_id = $record_id;
+    $track->title = $title;
 
     return $track->updateTrack() ?
         ["message" => "Track updated"] :
@@ -129,14 +125,10 @@ function updateTrack() {
 }
 
 
-function deleteTrack() {
+function deleteTrack($track_id) {
     $track = setupTrack();
-    header("Access-Control-Allow-Methods: POST");
-    header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Content-Type");
 
-    $data = json_decode(file_get_contents("php://input"));
-
-    $track->id = $data->id;
+    $track->id = $track_id;
 
     return $track->deleteTrack() ?
         ["message" => "Track deleted"] :

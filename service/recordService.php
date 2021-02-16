@@ -46,9 +46,9 @@ function readAllRecords() {
 }
 
 
-function readOneRecord($id) {
+function readOneRecord($record_id) {
     $record = setupRecord();
-    $record->id = $id;
+    $record->id = $record_id;
 
     $one = $record->readOneRecord();
     $row = $one->fetch(PDO::FETCH_ASSOC);
@@ -84,10 +84,10 @@ function createRecord($artist, $title, $release_type, $release_year) {
 }
 
 
-function updateRecord($rec_id, $artist, $title, $release_type, $release_year) {
+function updateRecord($record_id, $artist, $title, $release_type, $release_year) {
     $record = setupRecord();
 
-    $record->id = $rec_id;
+    $record->id = $record_id;
     $record->artist = $artist;
     $record->title = $title;
     $record->release_type = $release_type;
@@ -99,9 +99,9 @@ function updateRecord($rec_id, $artist, $title, $release_type, $release_year) {
 }
 
 
-function deleteRecord($rec_id) {
+function deleteRecord($record_id) {
     $record = setupRecord();
-    $record->id = $rec_id;
+    $record->id = $record_id;
 
     return $record->deleteRecord() ?
         ["message" => "Record deleted"] :

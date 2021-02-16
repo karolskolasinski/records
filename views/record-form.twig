@@ -29,7 +29,7 @@
 
                         {% if record is not same as null %}
                             <input id="record-id" type="text" class="validate hide" name="record-id"
-                                   value="{{ record.id }}" disabled>
+                                   value="{{ record.id }}" disabled required>
                             <label for="record-id"></label>
                         {% endif %}
 
