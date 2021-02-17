@@ -1,11 +1,5 @@
 <?php
 
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable("./");
-$dotenv->load();
-
-
 class Database {
     private $db_host;
     private $db_user;
